@@ -25,6 +25,14 @@ class SortUtil {
 
     private static void merge(List<Employee> list, List<Employee> left, List<Employee> right) {
         int i = 0, j = 0, k = 0;
-        ;
+       while (i < left.size() && j < right.size()) {
+            if (left.get(i).getName().compareToIgnoreCase(right.get(j).getName()) < 0) {
+                list.set(k++, left.get(i++));
+            } else {
+                list.set(k++, right.get(j++));
+            }
+        }
+        while (i < left.size()) list.set(k++, left.get(i++));
+        while (j < right.size()) list.set(k++, right.get(j++));
     }
 }
