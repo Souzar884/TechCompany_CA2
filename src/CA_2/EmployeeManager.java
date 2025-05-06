@@ -35,3 +35,33 @@ class EmployeeManager {
             }
         }
     }
+    private void sortEmployees() {
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("Applicants_Form.txt"));
+            String line;
+            employees.clear();
+            while ((line = reader.readLine()) != null) {
+                employees.add(new Employee(line.trim(),
+                        new Manager(randomManagerType()),
+                        new Department(randomDepartmentName())));
+            }
+            SortUtil.mergeSort(employees);
+            System.out.println("\nTop 20 Sorted Names:");
+            for (int i = 0; i < Math.min(20, employees.size()); i++) {
+                System.out.println(employees.get(i));
+            }
+        } catch (IOException e) {
+            System.out.println("Error reading file: " + e.getMessage());
+        }
+    }
+    private void searchEmployee() {
+        System.out.print("Enter employee name to search: ");
+        String name = scanner.nextLine();
+        SortUtil.mergeSort(employees);
+        Employee found = SearchUtil.binarySearch(employees, name);
+        if (found != null) {
+            System.out.println("Found: " + found);
+        } else {
+            System.out.println("Employee not found.");
+        }
+    }
