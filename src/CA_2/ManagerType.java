@@ -8,6 +8,6 @@ package CA_2;
  *
  * @author roger
  */
-enum ManagerType {
+enum ManagerType {  // Enum representing the possible types of managers employees can have.
     HEAD_MANAGER, ASSISTANT_MANAGER, TEAM_LEAD
 }

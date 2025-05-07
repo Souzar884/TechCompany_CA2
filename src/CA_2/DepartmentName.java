@@ -8,6 +8,6 @@ package CA_2;
  *
  * @author roger
  */
-enum DepartmentName {
+enum DepartmentName {  // Enum representing different departments in the company.
     IT, HR, TECHNICAL_SUPPORT
 }

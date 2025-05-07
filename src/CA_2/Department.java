@@ -8,14 +8,14 @@ package CA_2;
  *
  * @author roger
  */
-class Department {
-    private DepartmentName name;
+class Department {   // Class to represent a department assigned to an employee.
+    private DepartmentName name;  // Stores the name of the department using the enum
 
-    public Department(DepartmentName name) {
+    public Department(DepartmentName name) {  // Constructor assigns the department name
         this.name = name;
     }
 
-    public DepartmentName getName() {
+    public DepartmentName getName() { // Getter to retrieve the department name
         return name;
     }
 }

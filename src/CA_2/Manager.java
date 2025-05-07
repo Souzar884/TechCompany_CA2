@@ -8,14 +8,16 @@ package CA_2;
  *
  * @author roger
  */
-class Manager {
-    private ManagerType type;
 
-    public Manager(ManagerType type) {
+// Class to represent a manager assigned to an employee.
+class Manager {
+    private ManagerType type; // Stores the type of manager using the enum
+
+    public Manager(ManagerType type) { // Constructor sets the manager's type
         this.type = type;
     }
 
-    public ManagerType getType() {
+    public ManagerType getType() { // Getter to retrieve the manager type
         return type;
     }
 }

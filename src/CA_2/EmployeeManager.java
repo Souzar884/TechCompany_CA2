@@ -8,25 +8,30 @@ package CA_2;
  *
  * @author roger
  */
-import java.util.*;
-import java.io.*;
+
+// This class controls the entire system: user input, menu handling,
+// employee creation, file reading, sorting, searching, and random generation.
+
+import java.util.*; // For List, ArrayList, Scanner, Random
+import java.io.*; // For file reading (BufferedReader, FileReader)
 
 class EmployeeManager {
-    private List<Employee> employees = new ArrayList<>();
-    private Scanner scanner = new Scanner(System.in);
-    private Random random = new Random();
-
-    public void run() {
+    private List<Employee> employees = new ArrayList<>(); // The main list storing all Employee objects
+    private Scanner scanner = new Scanner(System.in); // Scanner for reading input from the user
+    private Random random = new Random(); // Random generator for creating random names and selections
+ 
+    public void run() { // Main method to start the system and loop through menu options
         boolean exit = false;
-        while (!exit) {
+        
+        while (!exit) { // Display menu options
             System.out.println("\nSelect an option:");
             for (MenuOption option : MenuOption.values()) {
-                System.out.println(option.ordinal() + 1 + ". " + option);
+                System.out.println(option.ordinal() + 1 + ". " + option); // Print option number and name
             }
-            int choice = scanner.nextInt();
+            int choice = scanner.nextInt(); // Read user choice as integer
             scanner.nextLine();
 
-            switch (MenuOption.values()[choice - 1]) {
+            switch (MenuOption.values()[choice - 1]) { // Handle menu logic using enum values
                 case SORT -> sortEmployees();
                 case SEARCH -> searchEmployee();
                 case ADD -> addEmployee();
@@ -35,54 +40,65 @@ class EmployeeManager {
             }
         }
     }
-    private void sortEmployees() {
+    private void sortEmployees() {  // Function to read names from file, assign manager and department, and sort them
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("Applicants_Form.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader("Applicants_Form.txt")); // Read from file Applicants_Form.txt
             String line;
-            employees.clear();
-            while ((line = reader.readLine()) != null) {
-                employees.add(new Employee(line.trim(),
-                        new Manager(randomManagerType()),
-                        new Department(randomDepartmentName())));
+            employees.clear(); // Clear the existing list
+            while ((line = reader.readLine()) != null) {  // Read each line (name) from the file and create an Employee object
+                employees.add(new Employee(line.trim(),  // Employee name
+                        new Manager(randomManagerType()), // Assign random manager type
+                        new Department(randomDepartmentName()))); // Assign random department
             }
-            SortUtil.mergeSort(employees);
-            System.out.println("\nTop 20 Sorted Names:");
+            SortUtil.mergeSort(employees);  // Sort employees using Merge Sort
+            
+            System.out.println("\nTop 20 Sorted Names:"); // Display first 20 sorted employees
+            
             for (int i = 0; i < Math.min(20, employees.size()); i++) {
                 System.out.println(employees.get(i));
             }
-        } catch (IOException e) {
+        } catch (IOException e) { // If file not found or reading fails
             System.out.println("Error reading file: " + e.getMessage());
         }
     }
-    private void searchEmployee() {
+    private void searchEmployee() { // Function to search for an employee by name using Binary Search
         System.out.print("Enter employee name to search: ");
+        
         String name = scanner.nextLine();
-        SortUtil.mergeSort(employees);
-        Employee found = SearchUtil.binarySearch(employees, name);
+        SortUtil.mergeSort(employees); // Sort the list before searching (Binary Search requires sorted list)
+        
+        Employee found = SearchUtil.binarySearch(employees, name); // Search and display result
         if (found != null) {
             System.out.println("Found: " + found);
         } else {
             System.out.println("Employee not found.");
         }
     }
-    private void addEmployee() {
+    private void addEmployee() {  // Allows manual addition of a new employee through input
         System.out.print("Enter name: ");
         String name = scanner.nextLine();
 
-        ManagerType managerType = selectManagerType();
-        DepartmentName departmentName = selectDepartmentName();
+        ManagerType managerType = selectManagerType();  // Let user choose manager type
+        DepartmentName departmentName = selectDepartmentName(); // Let user choose department
 
-        Employee newEmp = new Employee(name, new Manager(managerType), new Department(departmentName));
+        Employee newEmp = new Employee(name, new Manager(managerType), new Department(departmentName)); // Create new employee with selections and add to the list
         employees.add(newEmp);
         System.out.println("\n" + name + " added successfully as " + managerType + " in " + departmentName);
     }
-    private void generateRandomEmployees() {
+    private void generateRandomEmployees() { // Generate multiple random employees with random names, manager types, and departments
         System.out.print("How many employees to generate? ");
         int count = scanner.nextInt();
-        scanner.nextLine();
-        for (int i = 0; i < count; i++) {
+        scanner.nextLine(); // Consume newline
+        for (int i = 0; i < count; i++) { // Random username
             String name = "User" + random.nextInt(1000);
             employees.add(new Employee(name, new Manager(randomManagerType()), new Department(randomDepartmentName())));
         }
         System.out.println(count + " employees generated.");
+    }
+    private ManagerType randomManagerType() { // Randomly pick a manager type from the enum
+        return ManagerType.values()[random.nextInt(ManagerType.values().length)];
+    }
+
+    private DepartmentName randomDepartmentName() { // Randomly pick a department name from the enum
+        return DepartmentName.values()[random.nextInt(DepartmentName.values().length)];
     }

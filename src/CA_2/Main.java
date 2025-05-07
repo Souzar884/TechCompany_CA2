@@ -10,7 +10,7 @@ package CA_2;
  */
 public class Main {
     public static void main(String[] args) {
-        EmployeeManager manager = new EmployeeManager();
-        manager.run();
+        EmployeeManager manager = new EmployeeManager();   // Create the system manager that will handle employees and user interaction
+        manager.run(); // Start the program's main menu
     }
 }
