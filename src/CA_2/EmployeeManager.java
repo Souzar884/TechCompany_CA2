@@ -76,3 +76,13 @@ class EmployeeManager {
         employees.add(newEmp);
         System.out.println("\n" + name + " added successfully as " + managerType + " in " + departmentName);
     }
+    private void generateRandomEmployees() {
+        System.out.print("How many employees to generate? ");
+        int count = scanner.nextInt();
+        scanner.nextLine();
+        for (int i = 0; i < count; i++) {
+            String name = "User" + random.nextInt(1000);
+            employees.add(new Employee(name, new Manager(randomManagerType()), new Department(randomDepartmentName())));
+        }
+        System.out.println(count + " employees generated.");
+    }

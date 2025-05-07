@@ -9,5 +9,8 @@ package CA_2;
  * @author roger
  */
 public class Main {
-    
+    public static void main(String[] args) {
+        EmployeeManager manager = new EmployeeManager();
+        manager.run();
+    }
 }
