@@ -65,3 +65,14 @@ class EmployeeManager {
             System.out.println("Employee not found.");
         }
     }
+    private void addEmployee() {
+        System.out.print("Enter name: ");
+        String name = scanner.nextLine();
+
+        ManagerType managerType = selectManagerType();
+        DepartmentName departmentName = selectDepartmentName();
+
+        Employee newEmp = new Employee(name, new Manager(managerType), new Department(departmentName));
+        employees.add(newEmp);
+        System.out.println("\n" + name + " added successfully as " + managerType + " in " + departmentName);
+    }
