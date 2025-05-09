@@ -102,3 +102,23 @@ class EmployeeManager {
     private DepartmentName randomDepartmentName() { // Randomly pick a department name from the enum
         return DepartmentName.values()[random.nextInt(DepartmentName.values().length)];
     }
+    private ManagerType selectManagerType() { // Allow user to select a manager type from options
+        System.out.println("Select Manager Type:");
+        for (int i = 0; i < ManagerType.values().length; i++) {
+            System.out.println((i + 1) + ". " + ManagerType.values()[i]);
+        }
+        int choice = scanner.nextInt(); // Consume newline
+        scanner.nextLine();
+        return ManagerType.values()[choice - 1];
+    }
+
+    private DepartmentName selectDepartmentName() { // Allow user to select a department name from options
+        System.out.println("Select Department:");
+        for (int i = 0; i < DepartmentName.values().length; i++) {
+            System.out.println((i + 1) + ". " + DepartmentName.values()[i]);
+        }
+        int choice = scanner.nextInt(); // Consume newline
+        scanner.nextLine();
+        return DepartmentName.values()[choice - 1];
+    }
+}
